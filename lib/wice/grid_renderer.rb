@@ -537,6 +537,9 @@ module Wice
 
     def base_link_for_filter(controller, extra_parameters = {})   #:nodoc:
       new_params = Wice::WgHash.deep_clone controller.params
+      if Rails.version.to_i >= 5
+        new_params = new_params.to_h
+      end
       new_params.merge!(extra_parameters)
 
       if new_params[@grid.name]
@@ -557,6 +560,9 @@ module Wice
 
     def link_for_export(controller, format, extra_parameters = {})   #:nodoc:
       new_params = Wice::WgHash.deep_clone controller.params
+      if Rails.version.to_i >= 5
+        new_params = new_params.to_h
+      end
       new_params.merge!(extra_parameters)
 
       new_params[@grid.name] = {} unless new_params[@grid.name]
@@ -579,6 +585,9 @@ module Wice
       } }
 
       cleaned_params = Wice::WgHash.deep_clone params
+      if Rails.version.to_i >= 5
+        cleaned_params = cleaned_params.to_h
+      end
       cleaned_params.merge!(extra_parameters)
 
       cleaned_params.delete(:controller)
